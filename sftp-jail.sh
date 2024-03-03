@@ -378,6 +378,7 @@ function sshd_config_user()
     echo "---------------------------"
   fi
   apply_sshd_configs "$SSHD_CONFIG_USER" "SFTP USER [ $SFTP_USER_NAME ] CONFIG"
+  chmod 700 $SSHD_CONFIG_USER
 }
 
 #CONFIGURE SSHD GROUP JAIL
@@ -395,9 +396,14 @@ function sshd_config_group()
     echo "PubkeyAuthentication yes # [ $COMMENT ] # $SFTP_GROUP_NAME" | tee -a $SSHD_CONFIG_GROUP
     echo "ChallengeResponseAuthentication no # [ $COMMENT ] # $SFTP_GROUP_NAME" | tee -a $SSHD_CONFIG_GROUP
     echo "PasswordAuthentication no # [ $COMMENT ] # $SFTP_GROUP_NAME" | tee -a $SSHD_CONFIG_GROUP
+    echo "AllowTcpForwarding no # [ $COMMENT ] # $SFTP_GROUP_NAME" | tee -a $SSHD_CONFIG_GROUP
+    echo "PermitTunnel no # [ $COMMENT ] # $SFTP_GROUP_NAME" | tee -a $SSHD_CONFIG_GROUP
+    echo "X11Forwarding no # [ $COMMENT ] # $SFTP_GROUP_NAME" | tee -a $SSHD_CONFIG_GROUP
+    echo "PermitTTY no # [ $COMMENT ] # $SFTP_GROUP_NAME" | tee -a $SSHD_CONFIG_GROUP
     echo "---------------------------"
   fi
   apply_sshd_configs "$SSHD_CONFIG_GROUP" "SFTP GROUP [ $SFTP_GROUP_NAME ] CONFIG"
+  chmod 700 $SSHD_CONFIG_GROUP
 }
 
 #CONFIGURE GLOBAL SSHD
